@@ -1,0 +1,14 @@
+{
+  "name": "web-traport-generator",
+  "version": "0.0.1",
+  "description": "Expose controller functions to client side through by using HTTP/HTTPS as a Medium/Channel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harish.K",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.4.2"
+  }
+}

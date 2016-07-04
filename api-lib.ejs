@@ -1,0 +1,43 @@
+
+function bindActions( actions, thisVal ){
+  Object.keys(actions).forEach(function(action){
+    actions[action] = actions[action].bind(thisVal);
+  });
+}
+
+function Api(  ){
+
+  /*
+   * Bind all controller methods 
+   */
+<% ctrls.map(function( ctrl ){ -%>
+  bindActions( this.<%- ctrl.name %>, this );
+<% }); -%>
+}
+
+
+Api.prototype._request = function( method, path, opts ){
+  throw new Error('_request method need to be implemented');
+};
+
+
+<% ctrls.map(function( ctrl ){ %>
+/*
+ * <%- ctrl.name %> Controller 
+ */
+var <%- ctrl.name %> = {};
+Api.prototype.<%- ctrl.name %> = <%- ctrl.name %>;
+
+/* Methods */
+<% ctrl.actions.map(function( action ){ %>
+<%- ctrl.name %>.<%- action.name %> = function( data ){
+<% if(['get', 'delete'].indexOf( action.method) > -1 ){ -%>
+    this._request( '<%- action.method %>', '<%- action.url %>', { query: data } );
+<% } else { -%>
+    this._request( '<%- action.method %>', '<%- action.url %>', { body: data } );
+<% } -%>
+};
+
+<% }); %>
+<% }); %>
+
