@@ -39,12 +39,14 @@ Api.prototype.<%- ctrl.name %> = <%- ctrl.name %>;
 <% ctrl.actions.map(function( action ){ %>
 <%- ctrl.name %>.<%- action.name %> = function( data ){
 <% if(['get', 'delete'].indexOf( action.method) > -1 ){ -%>
-    this._request( '<%- action.method %>', '<%- action.url %>', { query: data } );
+    return this._request( '<%- action.method %>', '<%- action.url %>', { query: data } );
 <% } else { -%>
-    this._request( '<%- action.method %>', '<%- action.url %>', { body: data } );
+    return this._request( '<%- action.method %>', '<%- action.url %>', { body: data } );
 <% } -%>
 };
 
 <% }); %>
 <% }); %>
 
+
+module.exports = Api;
